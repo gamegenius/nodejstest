@@ -2,10 +2,7 @@
 $("#form input[type='submit']").click(function(){
             var postdata = $("#form input[type='text']").val();
             console.log(postdata);
-            $.post("post_test",
-            {
-              something: postdata
-            },
+            $.get("get_test?something="+postdata,
             function(data,status){
               $("#test").html(data);
               console.log(data + status);
@@ -13,6 +10,6 @@ $("#form input[type='submit']").click(function(){
           });
 </script>
       <div id = "form">
-        POST:<input type="text" name="something"/>
+        GET:<input type="text" name="something"/>
         <input type="submit" value="Submit"/>
       </div>
