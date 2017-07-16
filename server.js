@@ -6,18 +6,18 @@ var qs = require('querystring');
 http.createServer(function(req, res) {
   var q = url.parse(req.url, true);
   var filename, ContentType;
-  /*switch (q.pathname.replace(/(.*)\./,".")) {
-    case '.css':
-      ContentType = {'Content-Type': 'text/css'};
+  switch (q.pathname.replace(/(.*)\./,".")) {
+    case '.html':
+      res.writeHead(200, {'Content-Type': 'text/html; charset=utf8'});
       break;
-    case '.js':
+    /*case '.js':
       ContentType = {'Content-Type': 'application/x-javascript'};
-      break;
+      break;*/
     
     default:
-      ContentType = {'Content-Type': 'text/html'};
+      //ContentType = {'Content-Type': 'text/html'};
       break;
-  }*/
+  }
   switch (q.pathname) {
     case '/':
       fs.readFile("./index.html", function(err, data) {
