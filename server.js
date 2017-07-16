@@ -27,7 +27,7 @@ http.createServer(function(req, res) {
           });
           return res.end("404 Not Found");
         }
-        res.writeHead(200, ContentType);
+        res.writeHead(200, {'Content-Type': 'text/html; charset=utf8'});
         res.write(data);
         return res.end();
       });
