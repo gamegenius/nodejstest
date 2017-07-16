@@ -1,8 +1,8 @@
 <script>
 $("#form input[type='submit']").click(function(){
-            var postdata = $("#form input[type='text']").val();
-            console.log(postdata);
-            $.get("get_test?something="+postdata,
+            var getdata = $("#form input[type='text']").val();
+            console.log(getdata);
+            $.get("get_test?something="+getdata,
             function(data,status){
               $("#test").html(data);
               console.log(data + status);
