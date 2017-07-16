@@ -2,6 +2,7 @@ var http = require('http');
 var url = require('url');
 var fs = require('fs');
 var qs = require('querystring');
+var mysql = require('mysql');
 
 http.createServer(function(req, res) {
   var q = url.parse(req.url, true);
@@ -52,12 +53,33 @@ http.createServer(function(req, res) {
         res.writeHead(200, {'Content-Type': 'text/html; charset=utf8'});
         if (body.something) {
           // 输出提交的数据
-          res.write("中文something:" + body.something);
+          res.write("接收POST:" + body.something);
         }
         
 
         res.end();
       });
+      break;
+    case '/msg_show':
+      var sqldata;
+      res.writeHead(200, {'Content-Type': 'text/html; charset=utf8'});
+      var con = mysql.createConnection({
+        host: "db.mis.kuas.edu.tw",
+        user: "s1103107109",
+        password: "B123012591",
+        database: "s1103107109"
+      });
+      con.connect(function(err) {
+        if (err) throw err;
+        con.query("SELECT A.`id`,B.`username`,B.`nickname`,B.`email`,A.`text` FROM `anonymous_message_board` A,`user_profile` B WHERE A.`username` = b.`username` ORDER BY A.`id`", function (err, result, fields) {
+          if (err) throw err;
+          for(a in result){
+            res.write('<table border="1" width="50%"><tr><td>'+(parseInt(a)+1)+"樓<br />暱稱："+result[a].nickname+"<br />電子郵件："+result[a].email+"</td></tr><tr><td>"+result[a].text+"</td></tr></table><br/>");
+          }
+          res.end();
+        });
+      });
+      
       break;
     default:
       filename = "." + q.pathname;
