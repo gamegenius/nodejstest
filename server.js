@@ -8,7 +8,6 @@ var msg = {
     "href": ['/', 'post_form', 'get_form'],
     "content": ''
 };
-console.log(msg.id);
 app.use(body_parser.urlencoded({ extended: false }));
 app.use(body_parser.json());
 
