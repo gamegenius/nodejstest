@@ -8,6 +8,11 @@ var msg = {
     "href": ['/', 'post_form', 'get_form'],
     "content": ''
 };
+
+app.use('/css', express.static('css'));
+app.use('/fonts', express.static('fonts'));
+app.use('/js', express.static('js'));
+app.use('/files', express.static('files'));
 app.use(body_parser.urlencoded({ extended: false }));
 app.use(body_parser.json());
 
@@ -38,11 +43,7 @@ app.get('/get_action', function(req, res) {
     msg.content = 'GET得到：'+get_msg;
     res.render('index', msg);
 });
-app.get(/(.*)(\.)*/i, function(req, res) {  
-    res.sendfile(__dirname + "/" + req.params[0], function(err) {
-        if (err) res.send(404);
-    });
-});  
+ 
 var server = app.listen(process.env.PORT, function() { 
     console.log('Listening on port '+process.env.PORT);  
 });   
