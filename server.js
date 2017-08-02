@@ -2,11 +2,27 @@ var express = require('express');
 var body_parser = require('body-parser');
 var mysql = require('mysql');
 var app = express();  
+
 var msg = {
-    "id": ['index', 'msg_show', 'post_form', 'get_form'],
-    "css": ['', '', '', ''],
-    "li": ['首頁', '留言板', 'POST', 'GET'],
-    "href": ['/', 'msg_show','post_form', 'get_form'],
+    "li":{
+        "index":{
+            "text":'首頁',
+            "href":'/'
+            },
+        "msg_show":{
+            "text":'留言板',
+            "href":'msg_show'
+            },
+        "post_form":{
+            "text":'POST',
+            "href":'post_form'
+            },
+        "get_form":{
+            "text":'GET',
+            "href":'get_form'
+            }
+    },
+    "pagenow":'',
     "content": ''
 };
 
@@ -20,17 +36,17 @@ app.use(body_parser.json());
 app.set('view engine', 'ejs');  
 
 app.get('/', function(req, res) {
-    msg.css = ['active', '', '', ''];
+    msg.pagenow = 'index';
     msg.content= '<h1>Hello world~中文?</h1>';
     res.render('index', msg);
 });
 app.get('/post_form', function(req, res) {
-    msg.css= ['', '', 'active', ''];
+    msg.pagenow = 'post_form';
     msg.content= '<form action="post_action" method="post">POST:<input type="text" name="something"/><input type="submit" value="Submit"/></form>';
     res.render('index', msg);
 });
 app.get('/get_form', function(req, res) {
-    msg.css= ['', '', '', 'active'];
+    msg.pagenow = 'get_form';
     msg.content= '<form action="get_action" method="get">GET:<input type="text" name="something"/><input type="submit" value="Submit"/></form>';
     res.render('index', msg);
 });
@@ -54,17 +70,19 @@ app.get('/msg_show', function(req, res) {
           res.render('index', msg);
         });
       });
-    msg.css= ['', 'active', '', ''];
+    msg.pagenow = 'msg_show';
     
     
 });
 app.post('/post_action', function(req, res) {
     var post_msg = req.body.something;
+    msg.pagenow = '';
     msg.content = 'POST得到：'+post_msg;
     res.render('index', msg);
 });
 app.get('/get_action', function(req, res) {
     var get_msg = req.query.something;
+    msg.pagenow = '';
     msg.content = 'GET得到：'+get_msg;
     res.render('index', msg);
 });
