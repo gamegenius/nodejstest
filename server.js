@@ -86,7 +86,6 @@ app.get('/get_action', function(req, res) {
     msg.content = 'GET得到：'+get_msg;
     res.render('index', msg);
 });
- 
 var server = app.listen(process.env.PORT, function() { 
     console.log('Listening on port '+process.env.PORT);  
 });   
