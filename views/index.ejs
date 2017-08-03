@@ -25,7 +25,7 @@
           <ul class="nav navbar-nav">
             <% for(var value in li){ %>
             <% var css = (pagenow == value)?"active":"" %>
-            <li id="<%= value %>" class="<%= css %>"><a href="<%= li[value]['href'] %>"><%= li[value]['text'] %></a></li>
+            <li class="<%= css %>"><a href="<%= li[value]['href'] %>"><%= li[value]['text'] %></a></li>
             <% } %> 
           </ul>
         </div><!--/.nav-collapse -->
